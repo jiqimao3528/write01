@@ -20,6 +20,9 @@
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
+        <!-- 添加一个用于显示进度百分比的div -->
+        <div id="unity-progress-text"></div>
+        <!-- 新代码结束 -->
       </div>
       <div id="unity-warning"> </div>
       <div id="unity-footer">
@@ -35,6 +38,8 @@
       var progressBarFull = document.querySelector("#unity-progress-bar-full");
       var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
+      // 找到新添加的用于显示进度百分比的div
+      var progressText = document.querySelector("#unity-progress-text");
 
       //全局变量
       var hls_unityInstance;
@@ -64,11 +69,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/1.loader.js";
+      var loaderUrl = buildUrl + "/8.loader.js";
       var config = {
-        dataUrl: buildUrl + "/1.data.unityweb",
-        frameworkUrl: buildUrl + "/1.framework.js.unityweb",
-        codeUrl: buildUrl + "/1.wasm.unityweb",
+        dataUrl: buildUrl + "/8.data.unityweb",
+        frameworkUrl: buildUrl + "/8.framework.js.unityweb",
+        codeUrl: buildUrl + "/8.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "writeExercise",
@@ -153,6 +158,8 @@
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
+          // 更新进度百分比
+          progressText.innerHTML = "资源下载进度: " + Math.round(progress * 100) + "%";
         }).then((unityInstance) => {
           hls_unityInstance = unityInstance;
 
